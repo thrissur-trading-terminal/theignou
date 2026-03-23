@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>theIGNOU.com — Your IGNOU exams, sorted.</title>
+<meta name="description" content="Free solved assignments, PYQs and study material for 56 IGNOU programmes across 5 schools. No paywall. No login. Always free.">
+<meta property="og:title" content="theIGNOU.com — Your IGNOU exams, sorted.">
+<meta property="og:description" content="Free solved assignments, PYQs and study material for IGNOU students. No paywall. No login.">
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --navy:   #1e3a5f;
+  --navy2:  #2d4f7a;
+  --rust:   #b5451b;
+  --rust2:  #d4571f;
+  --cream:  #f5f0e8;
+  --paper:  #faf8f4;
+  --ink:    #1a1a2a;
+  --muted:  #6b6560;
+  --border: #ddd8ce;
+  --white:  #ffffff;
+
+  --soss: #1a3a5c; --soss-bg: #dde8f0;
+  --soms: #2d5a27; --soms-bg: #ddf0dd;
+  --soh:  #5c3a1a; --soh-bg:  #f0e4dd;
+  --soe:  #3a1a5c; --soe-bg:  #e8ddf0;
+  --sos:  #7a1a1a; --sos-bg:  #f5e0e0;
+}
+
+/* ── RESET ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(250,248,244,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+.nav-logo-img {
+  height: 32px;
+  width: auto;
+}
+.nav-wordmark {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.nav-wordmark strong { color: var(--navy); font-weight: 700; }
+.nav-wordmark .dot-com { color: var(--muted); font-weight: 400; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--navy); }
+
+.nav-cta {
+  background: var(--rust);
+  color: #fff !important;
+  padding: 0.45rem 1.1rem;
+  border-radius: 4px;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--rust2) !important; color: #fff !important; }
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  position: relative;
+  background: var(--cream);
+  overflow: hidden;
+}
+
+/* Subtle ruled-paper lines */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(30, 58, 95, 0.06) 31px,
+    rgba(30, 58, 95, 0.06) 32px
+  );
+  pointer-events: none;
+}
+
+/* Red margin line like exam paper */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 80px;
+  width: 1px;
+  background: rgba(181, 69, 27, 0.15);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.hero-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.2s;
+}
+
+.hero-h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.35s;
+}
+
+.hero-h1 em {
+  font-style: italic;
+  color: var(--rust);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.75;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.5s;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.65s;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.85rem 2rem;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover { background: var(--navy2); transform: translateY(-1px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  padding: 0.85rem 2rem;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1.5px solid var(--navy);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--navy); color: #fff; }
+
+.hero-note {
+  margin-top: 1.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-family: 'Shadows Into Light Two', cursive;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.8s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── STATS STRIP ──────────────────────────────────────────────── */
+.stats-strip {
+  background: var(--navy);
+  padding: 2.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 0.8rem 3rem;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--rust2);
+  display: block;
+  line-height: 1;
+}
+.stat-num.small {
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  padding-top: 0.65rem;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.4rem;
+  display: block;
+}
+
+/* ── WHO IS THIS FOR ──────────────────────────────────────────── */
+.who-section {
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.who-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.who-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--rust);
+}
+
+.who-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.who-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+
+.who-desc {
+  font-family: 'Shadows Into Light Two', cursive;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.who-bottom {
+  max-width: 620px;
+  margin: 2.5rem auto 0;
+  text-align: center;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--rust);
+  border-radius: 0 6px 6px 0;
+  padding: 1.2rem 1.8rem;
+}
+
+.who-bottom p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--navy);
+  line-height: 1.6;
+}
+
+.who-bottom span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+}
+
+/* ── SECTION COMMON ───────────────────────────────────────────── */
+.section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 600;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 0.7rem;
+  line-height: 1.2;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 480px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+/* ── HOW IT WORKS ─────────────────────────────────────────────── */
+.how-section {
+  background: var(--cream);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.step-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+}
+
+.step-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.step-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  font-family: 'Shadows Into Light Two', cursive;
+  font-size: 0.98rem;
+}
+
+.step-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2.5rem;
+  color: var(--border);
+  font-size: 1.5rem;
+}
+
+/* ── SCHOOLS ──────────────────────────────────────────────────── */
+.schools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.school-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--white);
+  text-decoration: none;
+  color: var(--ink);
+  transition: all 0.2s;
+  display: block;
+}
+.school-card:hover {
+  border-color: var(--navy);
+  box-shadow: 0 6px 24px rgba(30,58,95,0.1);
+  transform: translateY(-2px);
+}
+
+.school-card-top {
+  padding: 1.2rem 1.4rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.school-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  letter-spacing: 0.04em;
+}
+
+.badge-soss { background: var(--soss-bg); color: var(--soss); }
+.badge-soms { background: var(--soms-bg); color: var(--soms); }
+.badge-soh  { background: var(--soh-bg);  color: var(--soh);  }
+.badge-soe  { background: var(--soe-bg);  color: var(--soe);  }
+.badge-sos  { background: var(--sos-bg);  color: var(--sos);  }
+
+.school-card-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  flex: 1;
+}
+
+.school-card-body {
+  padding: 1rem 1.4rem;
+}
+
+.school-prog-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.school-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.school-tag {
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: var(--cream);
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.school-card-footer {
+  padding: 0.7rem 1.4rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper);
+}
+
+.school-card-cta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--rust);
+  letter-spacing: 0.02em;
+}
+
+.school-card-arrow {
+  color: var(--rust);
+  transition: transform 0.2s;
+}
+.school-card:hover .school-card-arrow { transform: translateX(4px); }
+
+/* ── NOTIFY SECTION ───────────────────────────────────────────── */
+.notify-section {
+  background: var(--navy);
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.notify-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(255,255,255,0.03) 31px,
+    rgba(255,255,255,0.03) 32px
+  );
+  pointer-events: none;
+}
+
+.notify-inner { position: relative; z-index: 1; }
+
+.notify-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(213, 87, 31, 0.8);
+  margin-bottom: 0.8rem;
+}
+
+.notify-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+}
+
+.notify-sub {
+  font-family: 'Shadows Into Light Two', cursive;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 420px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.notify-form {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.notify-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.notify-input::placeholder { color: rgba(255,255,255,0.3); }
+.notify-input:focus { border-color: var(--rust2); }
+
+.notify-btn {
+  padding: 0.8rem 1.6rem;
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s, transform 0.15s;
+}
+.notify-btn:hover { background: var(--rust2); transform: translateY(-1px); }
+
+.notify-fine {
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.25);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+footer {
+  background: #111827;
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-top: 1px solid #1f2937;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+.footer-logo { height: 24px; }
+.footer-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #9ca3af;
+}
+.footer-name strong { color: #e5e7eb; }
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: #4b5563;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 0.75rem;
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: #9ca3af; }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  nav { padding: 0 1.2rem; }
+  .nav-links { display: none; }
+  .hero { padding: 7rem 1.2rem 4rem; }
+  .hero::after { left: 24px; }
+  .stats-strip { gap: 0; }
+  .stat-item { padding: 0.8rem 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .stat-item:last-child { border-bottom: none; }
+  .steps-grid { grid-template-columns: 1fr; gap: 0; }
+  .step-connector { display: none; }
+  .section { padding: 3.5rem 1.2rem; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="/" class="nav-brand">
+    <img src="logo.png" alt="theIGNOU.com logo" class="nav-logo-img">
+    <span class="nav-wordmark">the<strong>IGNOU</strong><span class="dot-com">.com</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#schools">Schools</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#notify" class="nav-cta">Get Notified</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <img src="logo.png" alt="theIGNOU.com" class="hero-logo">
+    <div class="hero-eyebrow">IGNOU's most complete study resource</div>
+    <h1 class="hero-h1">Your IGNOU exams,<br><em>sorted.</em></h1>
+    <p class="hero-sub">
+      Solved assignments, PYQs and study material for 56 programmes —
+      written the way your answer paper should look. For students who study
+      between shifts, between chores, between everything else.
+    </p>
+    <div class="hero-actions">
+      <a href="#schools" class="btn-primary">Browse My Programme →</a>
+      <a href="#how" class="btn-secondary">How it works</a>
+    </div>
+    <p class="hero-note">Covering TQs · SAQs · PYQs · Assignments across all units.</p>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <span class="stat-num">56</span>
+    <span class="stat-label">Programmes</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">5</span>
+    <span class="stat-label">Schools</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">35L+</span>
+    <span class="stat-label">IGNOU Students</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num small">TQ · SAQ · PYQ</span>
+    <span class="stat-label">Question Types Covered</span>
+  </div>
+</div>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="how-section" id="how">
+  <div class="section" style="padding-top:4rem; padding-bottom:4rem;">
+    <div class="section-eyebrow">Simple as it gets</div>
+    <h2 class="section-title">How theIGNOU.com works</h2>
+    <p class="section-sub">No registration. No fees. Just find your programme and read.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Find your programme</div>
+        <p class="step-desc">Pick your school and programme from the list below. We cover MSc Physics, MBA, BA, BCom and more.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Open your question</div>
+        <p class="step-desc">TQs, SAQs, PYQs — all organised by unit. Click any question and the full solved answer slides open.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Write your answer</div>
+        <p class="step-desc">Every answer is written exactly how it should appear in your exam paper — structured, complete, exam-ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHO IS THIS FOR ── -->
+<section class="who-section">
+  <div class="section" style="padding-top:4rem; padding-bottom:4rem;">
+    <div class="section-eyebrow">Built for you</div>
+    <h2 class="section-title">Who studies with theIGNOU.com</h2>
+    <p class="section-sub">IGNOU exists because life doesn't pause for education. Neither should your study material.</p>
+
+    <div class="who-grid">
+
+      <div class="who-card">
+        <span class="who-icon">👨‍💼</span>
+        <div class="who-title">The working professional</div>
+        <p class="who-desc">Studying after a 9-hour shift. No time for wrong answers or incomplete solutions. Every hour counts.</p>
+      </div>
+
+      <div class="who-card">
+        <span class="who-icon">👩‍🍳</span>
+        <div class="who-title">The homemaker</div>
+        <p class="who-desc">Completing a degree between responsibilities. Deserves the same quality of material as any full-time student.</p>
+      </div>
+
+      <div class="who-card">
+        <span class="who-icon">🏘️</span>
+        <div class="who-title">The small-town student</div>
+        <p class="who-desc">No coaching centre nearby. No senior to ask. Just determination and a phone with internet.</p>
+      </div>
+
+      <div class="who-card">
+        <span class="who-icon">🔄</span>
+        <div class="who-title">The career switcher</div>
+        <p class="who-desc">Adding a qualification while keeping the job. Needs crisp, exam-ready answers — not 200-page textbooks.</p>
+      </div>
+
+    </div>
+
+    <div class="who-bottom">
+      <p>"You already paid for the degree. You put in the years. Don't let bad study material be the reason you fall short in the exam."</p>
+      <span>— The reason theIGNOU.com exists</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SCHOOLS ── -->
+<section id="schools">
+  <div class="section">
+    <div class="section-eyebrow">Browse by school</div>
+    <h2 class="section-title">Find your programme</h2>
+    <p class="section-sub">We cover 56 programmes across IGNOU's top 5 schools by enrollment.</p>
+
+    <div class="schools-grid">
+
+      <!-- SOS -->
+      <a href="sos/MSCPH.html" class="school-card">
+        <div class="school-card-top">
+          <span class="school-badge badge-sos">SOS</span>
+          <span class="school-card-name">School of Sciences</span>
+        </div>
+        <div class="school-card-body">
+          <div class="school-prog-count">14 programmes</div>
+          <div class="school-tags">
+            <span class="school-tag">MSCPH</span>
+            <span class="school-tag">MACS</span>
+            <span class="school-tag">MSCAST</span>
+            <span class="school-tag">BSCG</span>
+            <span class="school-tag">MSCCHEM</span>
+            <span class="school-tag">+9 more</span>
+          </div>
+        </div>
+        <div class="school-card-footer">
+          <span class="school-card-cta">Browse programmes</span>
+          <span class="school-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- SOMS -->
+      <a href="soms/MBA.html" class="school-card">
+        <div class="school-card-top">
+          <span class="school-badge badge-soms">SOMS</span>
+          <span class="school-card-name">School of Management Studies</span>
+        </div>
+        <div class="school-card-body">
+          <div class="school-prog-count">8 programmes</div>
+          <div class="school-tags">
+            <span class="school-tag">MBA</span>
+            <span class="school-tag">MBAFM</span>
+            <span class="school-tag">MBAMM</span>
+            <span class="school-tag">BCOMG</span>
+            <span class="school-tag">+4 more</span>
+          </div>
+        </div>
+        <div class="school-card-footer">
+          <span class="school-card-cta">Browse programmes</span>
+          <span class="school-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- SOSS -->
+      <a href="soss/BAG.html" class="school-card">
+        <div class="school-card-top">
+          <span class="school-badge badge-soss">SOSS</span>
+          <span class="school-card-name">School of Social Sciences</span>
+        </div>
+        <div class="school-card-body">
+          <div class="school-prog-count">25 programmes</div>
+          <div class="school-tags">
+            <span class="school-tag">BAG</span>
+            <span class="school-tag">BAPSH</span>
+            <span class="school-tag">MAPC</span>
+            <span class="school-tag">MPS</span>
+            <span class="school-tag">+21 more</span>
+          </div>
+        </div>
+        <div class="school-card-footer">
+          <span class="school-card-cta">Browse programmes</span>
+          <span class="school-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- SOH -->
+      <a href="soh/MEG.html" class="school-card">
+        <div class="school-card-top">
+          <span class="school-badge badge-soh">SOH</span>
+          <span class="school-card-name">School of Humanities</span>
+        </div>
+        <div class="school-card-body">
+          <div class="school-prog-count">5 programmes</div>
+          <div class="school-tags">
+            <span class="school-tag">MEG</span>
+            <span class="school-tag">BAEGH</span>
+            <span class="school-tag">BAFEG</span>
+            <span class="school-tag">BDP</span>
+            <span class="school-tag">+1 more</span>
+          </div>
+        </div>
+        <div class="school-card-footer">
+          <span class="school-card-cta">Browse programmes</span>
+          <span class="school-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- SOE -->
+      <a href="soe/BAFEDU.html" class="school-card">
+        <div class="school-card-top">
+          <span class="school-badge badge-soe">SOE</span>
+          <span class="school-card-name">School of Education</span>
+        </div>
+        <div class="school-card-body">
+          <div class="school-prog-count">4 programmes</div>
+          <div class="school-tags">
+            <span class="school-tag">BAFEDU</span>
+            <span class="school-tag">MADE</span>
+            <span class="school-tag">MAAE</span>
+            <span class="school-tag">BAG</span>
+          </div>
+        </div>
+        <div class="school-card-footer">
+          <span class="school-card-cta">Browse programmes</span>
+          <span class="school-card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── NOTIFY ── -->
+<section class="notify-section" id="notify">
+  <div class="notify-inner">
+    <div class="notify-eyebrow">Content dropping soon</div>
+    <h2 class="notify-title">Be the first to know<br>when your programme goes live</h2>
+    <p class="notify-sub">We're solving papers one programme at a time. Drop your email and we'll notify you the moment yours is ready.</p>
+    <div class="notify-form">
+      <input class="notify-input" type="email" placeholder="your@email.com" id="notifyEmail">
+      <button class="notify-btn" onclick="handleNotify()">Notify Me</button>
+    </div>
+    <p class="notify-fine">No spam. One email when your content is live. That's it.</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <a href="/" class="footer-brand">
+    <img src="logo.png" alt="theIGNOU.com" class="footer-logo">
+    <span class="footer-name">the<strong>IGNOU</strong>.com</span>
+  </a>
+  <span class="footer-copy">© 2026 theIGNOU.com · Not affiliated with IGNOU officially.</span>
+  <ul class="footer-links">
+    <li><a href="#schools">Programmes</a></li>
+    <li><a href="#notify">Get Notified</a></li>
+  </ul>
+</footer>
+
+<script>
+// Navbar shadow on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Notify form
+function handleNotify() {
+  const email = document.getElementById('notifyEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  // TODO: connect to Mailchimp or Formspree
+  document.querySelector('.notify-form').innerHTML =
+    '<p style="color:#fff; font-family:\'Shadows Into Light Two\',cursive; font-size:1.1rem;">✓ Got it! We\'ll let you know when your programme is ready.</p>';
+}
+
+// Smooth anchor scroll with nav offset
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 68, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
